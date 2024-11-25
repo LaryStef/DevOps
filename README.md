@@ -1,0 +1,1 @@
+DevOps MIREA, 3 sem
