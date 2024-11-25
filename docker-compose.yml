@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    depends_on:
+      postgres:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/mydatabase
